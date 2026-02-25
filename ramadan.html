@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ramadan Mubarak 🎁</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle at top,#243949,#141e30);
+  font-family:'Segoe UI',sans-serif;
+  color:white;
+  overflow:hidden;
+}
+
+/* LANTERNS */
+.lantern{
+  position:absolute;
+  top:-10px;
+  font-size:48px;
+  animation:swing 4s ease-in-out infinite;
+  transform-origin:top center;
+  opacity:.85;
+}
+.l1{left:10%; animation-delay:0s}
+.l2{left:30%; animation-delay:1s}
+.l3{right:30%; animation-delay:2s}
+.l4{right:10%; animation-delay:3s}
+
+@keyframes swing{
+  0%,100%{transform:rotate(0deg)}
+  50%{transform:rotate(6deg)}
+}
+
+/* MAIN FRAME */
+.frame{
+  border:4px double #d4af37;
+  padding:40px 30px 45px;
+  border-radius:28px;
+  max-width:650px;
+  width:90%;
+  text-align:center;
+  position:relative;
+  box-shadow:0 0 45px rgba(212,175,55,.45);
+}
+
+/* BADGES */
+.badge{
+  position:absolute;
+  background:linear-gradient(135deg,#fff,#ffe8a3);
+  color:#7a5c00;
+  padding:6px 14px;
+  border-radius:30px;
+  font-size:12px;
+  border:1px solid #d4af37;
+}
+.badge span{margin-right:4px}
+.top-left{top:12px;left:14px}
+.bottom-right{bottom:12px;right:14px}
+
+/* TEXT */
+.calligraphy{
+  font-size:38px;
+  color:#ffd700;
+  font-family:'Amiri',serif;
+}
+h1{margin:8px 0}
+h2{color:#a8e6cf;font-size:16px}
+
+/* GIFTS */
+.gifts{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:26px;
+  margin-top:35px;
+}
+
+.gift{
+  font-size:66px;
+  cursor:pointer;
+  animation:float 3s ease-in-out infinite;
+  transition:.3s;
+}
+.gift:hover{transform:scale(1.15)}
+.gift.opened{
+  opacity:0;
+  pointer-events:none;
+  transform:scale(0);
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+/* OVERLAY */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:10;
+}
+
+.card{
+  background:white;
+  color:#2c5364;
+  padding:28px;
+  border-radius:22px;
+  max-width:440px;
+  width:92%;
+  text-align:center;
+  border:3px solid #d4af37;
+  animation:scaleIn .4s ease;
+}
+@keyframes scaleIn{
+  from{transform:scale(.6);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.ar{
+  font-family:'Amiri',serif;
+  direction:rtl;
+  font-size:18px;
+  margin-bottom:6px;
+}
+.en{
+  font-size:14px;
+  color:#555;
+  margin-bottom:12px;
+}
+
+button{
+  margin-top:12px;
+  padding:10px 22px;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  color:white;
+}
+.share{background:#25D366}
+.close{background:#2c5364}
+
+/* MOON */
+.moon{
+  position:absolute;
+  top:-65px;
+  right:-45px;
+  font-size:120px;
+  opacity:.12;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Lanterns -->
+<div class="lantern l1">🏮</div>
+<div class="lantern l2">🏮</div>
+<div class="lantern l3">🏮</div>
+<div class="lantern l4">🏮</div>
+
+<div class="frame">
+  <div class="badge top-left"><span>🌙</span>Ramadan Mubarak</div>
+  <div class="badge bottom-right"><span>🌙</span>Ramadan Mubarak</div>
+  <div class="moon">🌙</div>
+
+  <div class="calligraphy">رمضان كريم</div>
+  <h1>Ramadan Mubarak</h1>
+  <h2>Open as many gifts as you wish ✨</h2>
+
+  <div class="gifts">
+    <div class="gift" onclick="openGift(this)">🎁</div>
+    <div class="gift" onclick="openGift(this)">🎁</div>
+    <div class="gift" onclick="openGift(this)">🎁</div>
+    <div class="gift" onclick="openGift(this)">🎁</div>
+    <div class="gift" onclick="openGift(this)">🎁</div>
+    <div class="gift" onclick="openGift(this)">🎁</div>
+    <div class="gift" onclick="openGift(this)">🎁</div>
+    <div class="gift" onclick="openGift(this)">🎁</div>
+    <div class="gift" onclick="openGift(this)">🎁</div>
+  </div>
+</div>
+
+<!-- POPUP -->
+<div class="overlay" id="overlay">
+  <div class="card">
+    <h3>🌙 Ramadan Blessing 🌙</h3>
+    <div class="ar" id="verseAr"></div>
+    <div class="en" id="verseEn"></div>
+    <hr>
+    <div class="ar" id="duaAr"></div>
+    <div class="en" id="duaEn"></div>
+    <button class="share" onclick="share()">📲 Share</button><br>
+    <button class="close" onclick="closeGift()">Close</button>
+  </div>
+</div>
+
+<audio id="nasheed" loop autoplay>
+  <source src="https://dl.dropbox.com/scl/fi/9n8m2m7p7w7xj9s5z3j7q/ramadan-nasheed.mp3?dl=0">
+</audio>
+
+<script>
+const verses=[
+{ar:"﴿ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ ﴾ (13:28)",en:"Surely, in the remembrance of Allah do hearts find peace."},
+{ar:"﴿ فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ﴾ (94:6)",en:"Indeed, with hardship comes ease."},
+{ar:"﴿ وَرَحْمَتِي وَسِعَتْ كُلَّ شَيْءٍ ﴾ (7:156)",en:"My mercy encompasses all things."}
+];
+
+const duas=[
+{ar:"اللهم تقبل صيامنا وقيامنا.",en:"O Allah, accept our fasting and prayers."},
+{ar:"اللهم اغفر لنا وارحمنا.",en:"O Allah, forgive us and have mercy on us."},
+{ar:"اللهم اجعل هذا الشهر مغفرة لنا.",en:"O Allah, make this month a source of forgiveness."}
+];
+
+function openGift(el){
+  const v=verses[Math.floor(Math.random()*verses.length)];
+  const d=duas[Math.floor(Math.random()*duas.length)];
+  verseAr.innerText=v.ar;
+  verseEn.innerText=v.en;
+  duaAr.innerText=d.ar;
+  duaEn.innerText=d.en;
+  overlay.style.display="flex";
+  el.classList.add("opened");
+}
+
+function closeGift(){
+  overlay.style.display="none";
+}
+
+function share(){
+  const text="🌙 Ramadan Mubarak 🌙\n\n"+
+  verseAr.innerText+"\n"+verseEn.innerText+"\n\n"+
+  duaAr.innerText+"\n"+duaEn.innerText;
+  window.open("https://wa.me/?text="+encodeURIComponent(text));
+}
+</script>
+
+</body>
+</html>
